@@ -1,0 +1,868 @@
+
+\documentclass[futureinternet,article,submit,pdftex,moreauthors]{Definitions/mdpi}
+
+ 
+
+% MDPI internal commands - do not modify
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2025}
+\copyrightyear{2025}
+%\externaleditor{Firstname Lastname} % More than 1 editor, please add `` and '' before the last editor name
+\datereceived{ } 
+\daterevised{ } % Comment out if no revised date
+\dateaccepted{ } 
+\datepublished{ } 
+%\datecorrected{} % For corrected papers: "Corrected: XXX" date in the original paper.
+%\dateretracted{} % For retracted papers: "Retracted: XXX" date in the original paper.
+\hreflink{https://doi.org/} % If needed use \linebreak
+%\doinum{}
+%\pdfoutput=1 % Uncommented for upload to arXiv.org
+%\CorrStatement{yes}  % For updates
+%\longauthorlist{yes} % For many authors that exceed the left citation part
+%\IsAssociation{yes} % For association journals \usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[utf8]{inputenc} % si aún no lo tienes
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs, siunitx}
+\usepackage{xcolor}
+\definecolor{rowgray}{RGB}{248,248,248}
+\usepackage{placeins}
+\usepackage{pgfplots}
+\usepackage{needspace}
+
+\usepackage{caption}
+
+\usepackage{float}
+\usepackage{graphicx}
+
+
+\usepackage{multirow}
+
+\usepackage{booktabs}   % para \toprule \midrule \bottomrule
+\usepackage{tabularx}   % si usas tabularx
+\usepackage{array}      % a veces ayuda con columnas
+
+
+\Title{Integridad de los datos Biometricos en firmas digitales descentralizadas}
+
+% MDPI internal command: Title for citation in the left column
+\TitleCitation{Integridad de los datos biométricos en firmas digitales descentralizadas}
+
+% Author Orchid ID: enter ID or remove command
+% ORCID del autor
+\newcommand{\orcidauthorA}{0009-0000-3790-6752}
+
+\address[1]{Pontificia Universidad Católica del Ecuador, Esmeraldas, Ecuador; devinllerena23@gmail.com}
+
+% Authors, for the paper (add full first names)
+\Author{Devin Llerena $^{1,*}$\orcidA{}}
+
+\AuthorNames{Devin Llerena}
+
+
+\isAPAStyle{%
+       \AuthorCitation{Lastname, F., Lastname, F., \& Lastname, F.}
+         }{%
+        \isChicagoStyle{%
+        \AuthorCitation{Lastname, Firstname, Firstname Lastname, and Firstname Lastname.}
+        }{
+        \AuthorCitation{Lastname, F.; Lastname, F.; Lastname, F.}
+        }
+}
+
+\abstract{La creciente adopción de firmas digitales y sistemas de identidad en entornos electrónicos ha incrementado la necesidad de garantizar la integridad y la seguridad de los datos biométricos utilizados en estos procesos. En este contexto, las tecnologías descentralizadas han surgido como una alternativa para reducir la dependencia de infraestructuras centralizadas y reforzar la verificabilidad de la información. Frente a este escenario, el objetivo de este estudio es analizar de forma sistemática las limitaciones, fortalezas y tendencias de los enfoques propuestos para garantizar la integridad de los datos biométricos en firmas digitales descentralizadas. La investigación se desarrolló mediante una revisión sistemática de la literatura, delimitada mediante el marco PICo. A partir de una estrategia de búsqueda estructurada en bases de datos científicas, se aplicaron criterios de inclusión y exclusión, así como una evaluación de calidad metodológica para seleccionar y analizar los estudios relevantes. Los resultados muestran que las soluciones integran principalmente biometría humana con arquitecturas basadas en blockchain y que la integridad se apoya sobre todo en técnicas criptográficas consolidadas, mientras que enfoques avanzados presentan adopción limitada. También se identifican desafíos relacionados con costos, latencia, variabilidad biométrica y riesgos de privacidad. En general, el área avanza hacia propuestas más completas, aunque persisten brechas para su aplicación práctica a gran escala.}
+\keyword{biometría; firmas digitales; blockchain; integridad; privacidad}
+
+\begin{document}
+
+
+
+
+
+\section{Introduction}
+
+
+
+
+La transformación digital impulso la necesidad de métodos de seguridad robustos que garanticen la seguridad  y confianza en entornos electrónicos. Por ello las firmas digitales se convirtieron en un 
+pilar esencial para asegurar la integridad y no repudio de la información. Por otro lado, las tecnologías descentralizadas, como blockchanin surgieron como una alternativa prometedora para implementar 
+mecanismos de identidad digital distribuidos y verificables. En este contexto, los datos biométricos representan un gran avance al ofrecer una autenticación basada en características únicas, fortaleciendo 
+la confianza en los procesos digitales \cite{Khranovskyi1,Ghafourian2}.
+A pesar de que la biometría y las técnicas criptográficas han avanzado bastante, todavía hay muchos problemas serios cuando se trata de proteger y revisar la integridad de los datos biometricos dentro de 
+sistemas digitales. Las plantillas biométricas siguen siendo vulnerables a ataques donde alguien puede reconstruir o hasta suplantar la identidad, sobre todo cuando esos datos se guardan o se envían sin 
+buenos mecanismos de descentralización o anonimización. En sistemas de firma digital pasa algo parecido, porque si la plantilla se altera un poco, ya se compromete todo el proceso y pueden darse casos de 
+fraude o accesos que no deberian pasar. Además, no todos los sistemas generan ni validan las plantillas biométricas del mismo modo, lo que complica evaluar su integridad y limita la compatibilidad entre plataformas. 
+Todo esto se vuelve mas complicado en infraestructuras descentralizadas, porque no existe una entidad que supervise ese proceso, asi que se necesita asegurar que los datos 
+sean verificables, inmutables y resistentes a cualquier manipulacion, algo que aún no esta del todo resuelto  \cite{Wang5}. 
+La importancia de este tema se encuentra  en el potencial para redefinir lo que es la seguridad digital contemporánea, en especial dentro del ámbito 
+global donde la protección de la identidad y la privacidad son desafíos críticos. Los desafíos críticos en la seguridad digital actual se relacionan principalmente con la fragilidad de los mecanismos de 
+autenticación tradicionales \cite{mir7,griffin8}, la dependencia de sistemas centralizados que funcionan como puntos únicos de fallo, y la dificultad para garantizar la integridad y la privacidad de los datos 
+de identidad incluidos los biométricos en escenarios reales \cite{mir7}. A esto se suman problemas como el rastreo constante por parte de proveedores centralizados, la posibilidad de ataques fuera de línea cuando se
+comprometen bases de datos, la falta de control del usuario sobre su propia información, los errores en el reconocimiento biométrico que pueden excluir a individuos legítimos y los riesgos de manipulación de 
+registros críticos en sectores sensibles como la salud\cite{Wang5}. Estas limitaciones ponen en evidencia que los modelos actuales no siempre son confiables, ni escalables, ni adecuados para contextos globales donde la identidad
+digital debe ser segura, verificable y resistente a manipulación.
+Se han explorado distintas soluciones, incluyendo cifrado homomórfico y almacenamiento distribuido; sin embargo, la mayoría aborda únicamente componentes aislados del problema y no cubre los puntos
+más críticos. \cite{Sarier3}.Entre esos puntos que siguen sin resolverse están los ataques fuera de línea que pueden darse cuando un servidor o base de datos es comprometido, ya que muchos sistemas
+todavía no logran una protección completa frente a ese tipo de amenazas. También sigue siendo un problema que ciertos registros sensibles, como los de salud o transacciones críticas, puedan alterarse 
+si no existen mecanismos sólidos de inmutabilidad. A esto se suma que la biometría no siempre funciona como un identificador totalmente confiable, porque puede fallar en condiciones reales o ser manipulada
+en algunos casos, lo que afecta directamente la integridad del proceso de autenticación.
+En relación con la protección de las plantillas biométricas, el usar directamente la template biométrica para la autenticación 
+es considerado un punto débil,  y los sistemas centralizados de datos biométricos están expuestos a un riesgo de seguridad mayor.Están expuestos a un riesgo mayor porque, al reunir todas las plantillas en 
+un mismo punto, cualquier fallo o ataque compromete toda la base completa. Si un atacante logra acceder al servidor central, obtiene de una sola vez un volumen grande de datos que no pueden ser cambiados ni 
+reemplazados, como sí ocurre con una contraseña. Esto convierte a estos sistemas en objetivos muy atractivos y amplifica el impacto de cualquier filtración o manipulación de la biometría almacenada.
+Por ello es muy peligroso el uso de datos biométricos como semilla de una clave privada, por que si un atacante obtiene los datos biométricos, podría reconstruir la clave privada y acceder a los fondos o servicios\cite{Qin4}.
+Esta falta de claridad se refleja tambien en 
+diversidad de enfoques presentes en la literatura, donde pueden encontrarse sistemas hibridos basados en cifrado homomorfico y blockchain, como los descritos por Tavares et al. \cite{tavares9}, asi como 
+protocolos mas complejos como DAMFA, propuesto por Mir, Roland y Mayrhofer \cite{mir7}. En conjunto, estos trabajos muestran que todavia no existe un marco metodologico unificado para determinar que tecnicas
+son mas adecuadas ni como evaluar su efectividad en sistemas distribuidos, lo que dificulta avanzar hacia estandares comunes \cite{Sarier3,Qin4}. A partir de este panorama distintos estudios recientes han
+comenzado a explorar soluciones que buscan superar estas limitaciones. 
+En el trabajo de Khan et al. \cite{Varma2020AadharVoting} se propone un modelo para compartir datos biométricos de manera segura mediante blockchain. Las evaluaciones realizadas por los autores reportan una precisión de 
+autenticación que supera el 98 \% y una disminución importante en la FAR frente a enfoques convencionales.Estos hallazgos evidencian de forma cuantitativa  la eficacia de las tecnologías descentralizadas para reforzar la integridad y fiabilidad de los datos 
+biométricos en entornos de firma digital. Con ello se respalda la idea de que las arquitecturas descentralizadas pueden fortalecer la integridad y la fiabilidad de los datos biométricos en sistemas de firma 
+digital.Por otro lado, tambien hay un estudio importante de Griffin \cite{griffin8} que se centra en cómo usar datos biometricos en la creacion de firmas electronicas
+seguras. El autor propone los protocolos BAKE y BESAKE, que basicamente mezclan una contraseña con un dato biometrico para lograr una autenticacion multifactor mas fuerte, capaz de resistir ataques como phishing 
+o man in the middle. En estos esquemas la informacion biometrica no se revela durante el intercambio, lo que ayuda a mantener la integridad y la confidencialidad de las credenciales. Ademas, el trabajo muestra que
+este tipo de firmas puede funcionar en entornos descentralizados, ya que los protocolos no dependen de una PKI centralizada y se adaptan bien a sistemas basados en blockchain o DLT. Esto permite crear canales 
+seguros, autenticacion mutua y reducir el riesgo de repudio en transacciones digitales. En esta misma línea de investigación, Hassen et al. \cite{Hassen2020} abordan la problemática de la vulnerabilidad de las claves 
+privadas tradicionales en entornos IoT integrados con tecnologías blockchain. A diferencia de los enfoques que se basan en el almacenamiento de secretos, los autores proponen un esquema de firma digital basado en 
+identidad difusa (FIBS), en el cual la clave privada se obtiene de forma dinámica a partir de biometría multimodal, combinando la huella dactilar y las venas del dedo. El funcionamiento de la propuesta comienza 
+con una fase de preprocesamiento biométrico que incluye la mejora de la imagen, la detección de regiones de interés y la extracción de características mediante filtros de Gabor y Análisis de Componentes Principales, 
+lo que permite fusionar los rasgos en una identidad biométrica única. Esta identidad se incorpora directamente en el proceso criptográfico de generación de firmas, de modo que la autenticación y la firma de 
+transacciones se realizan sin necesidad de almacenar claves privadas en dispositivos o servidores externos. Para mantener la integridad de los datos biométricos, el esquema utiliza un mecanismo de verificación 
+tolerante a errores, en el que una firma generada con una identidad biométrica puede ser validada con capturas posteriores dentro de un umbral predefinido, evitando la exposición de los datos biométricos en bruto. 
+Además, la propuesta se apoya en la naturaleza descentralizada de la blockchain para el registro y la validación de certificados y transacciones, incorporando contratos inteligentes que refuerzan la integridad del 
+entorno distribuido mediante la verificación del software y del comportamiento de los nodos IoT. Aunque el enfoque implica un aumento en el tamaño de la clave derivada, los resultados experimentales demuestran su 
+viabilidad práctica y su resistencia criptográfica, lo que lo posiciona como una alternativa relevante para garantizar la integridad de los datos biométricos en esquemas de firma digital descentralizados. \cite{Hassen2020}.
+
+En los sistemas de autenticación biométrica descentralizados, Lee et al. \cite{Lee2021} proponen el sistema BDAS (Blockchain-based Distributed Biometric Authentication System) para abordar las vulnerabilidades 
+presentes en los esquemas tradicionales, como la fuga de información y la dependencia de servidores centrales. La propuesta se basa en la segmentación de la plantilla biométrica tras la captura y la extracción de 
+características, lo que evita su almacenamiento en un solo repositorio y reduce el riesgo de ingeniería inversa. El sistema divide la plantilla biométrica en varios fragmentos que se distribuyen entre distintos 
+nodos de una red blockchain. Durante la autenticación, un contrato inteligente localiza los fragmentos necesarios, que son recuperados y fusionados para realizar la verificación biométrica. La integridad y 
+confidencialidad de la información se preservan tanto por la fragmentación de los datos como por el registro auditable de cada operación en la blockchain, eliminando puntos únicos de falla. Aunque el enfoque 
+introduce una mayor latencia respecto a sistemas convencionales, los resultados evidencian una disponibilidad robusta, posicionando a BDAS como una alternativa viable para fortalecer la integridad de los datos 
+biométricos en entornos de autenticación descentralizados \cite{Lee2021}.
+
+Alzahab et al. \cite{AboAlzahab2024} presentan una aplicación descentralizada denominada BiometricIdentity, orientada a reducir las vulnerabilidades de los sistemas de identidad biométrica centralizados mediante el uso de 
+la blockchain de Ethereum. La propuesta incorpora el esquema de compromiso difuso (Fuzzy Commitment Scheme), lo que permite gestionar la variabilidad inherente de los datos biométricos sin almacenar directamente 
+las plantillas en la cadena de bloques. El sistema funciona a partir de la generación de un compromiso criptográfico durante la fase de enrolamiento, en la cual las características biométricas se combinan con una 
+clave aleatoria mediante códigos de corrección de errores. En esta etapa, únicamente se registran en la blockchain valores derivados e irreversibles. Durante la autenticación, una nueva captura biométrica 
+permite reconstruir y verificar la clave sin exponer la plantilla original. La integridad y la confidencialidad de la información se preservan mediante un enfoque híbrido, donde los datos sensibles se procesan fuera 
+de la cadena y la blockchain actúa como un registro inmutable y auditable. Aunque existen limitaciones de escalabilidad que requieren optimización fuera de la cadena, la propuesta resulta viable para garantizar la 
+integridad de los datos biométricos en sistemas de identidad descentralizados. \cite{AboAlzahab2024}.
+
+Jian Yun et al. \cite{Yun2024BioRollup} proponen Bio-Rollup, una arquitectura biométrica descentralizada que combina una blockchain de dos capas con pruebas de conocimiento cero para abordar las vulnerabilidades de 
+los sistemas biométricos centralizados, especialmente en términos de integridad, privacidad y escalabilidad. La propuesta evita el almacenamiento directo de los datos biométricos y permite verificar el proceso de 
+autenticación de forma criptográfica sin exponer información sensible. El sistema funciona a partir de la generación de resúmenes biométricos obtenidos del reconocimiento, los cuales se protegen mediante funciones 
+hash y se transmiten a través de canales cifrados. La integridad del proceso se garantiza mediante pruebas criptográficas off-chain basadas en SNARKs, que permiten validar transacciones y consultas sin revelar los 
+datos originales. Además, el uso de estructuras de Merkle facilita auditorías ligeras y verificables. Al separar el procesamiento del almacenamiento en la cadena principal y apoyarse en contratos inteligentes, 
+Bio-Rollup mejora la eficiencia operativa y refuerza su resiliencia frente a ataques, lo que lo convierte en una opción viable para preservar la integridad de los datos biométricos en sistemas de autenticación 
+descentralizados. \cite{Yun2024BioRollup}.
+
+Lai et al. \cite{Lai2024BioZero} presentan BioZero, un protocolo de autenticación biométrica descentralizada orientado a cadenas de bloques públicas, diseñado para superar las limitaciones de los esquemas basados 
+en claves asimétricas y reducir riesgos como el robo de claves y los ataques Sybil. La propuesta introduce un modelo de identidad biométrica vinculada directamente al usuario mediante credenciales soul-bound, lo 
+que evita la dependencia de proveedores de identidad centralizados. El funcionamiento del sistema integra la biometría a través de compromisos criptográficos, en los que los rasgos biométricos se transforman en 
+valores comprometidos que se almacenan en la blockchain, manteniendo ocultos los datos originales. Durante la autenticación, una nueva captura biométrica permite generar una prueba criptográfica que valida la 
+similitud entre muestras sin revelar la información en texto plano. La integridad del proceso se asegura mediante pruebas de conocimiento cero, que permiten verificar la autenticación dentro de un umbral definido 
+sin exponer los datos biométricos ni requerir su almacenamiento directo. Gracias a este enfoque, BioZero alcanza una verificación eficiente y escalable, y se posiciona como una alternativa viable para preservar la 
+integridad de los datos biométricos en sistemas de autenticación descentralizados orientados a Web 3.0 \cite{Lai2024BioZero}. Los principales antecedentes analizados, junto con sus enfoques técnicos y los aportes 
+específicos de cada propuesta, se sintetizan en la Tabla~\ref{tab:antecedentes_desc}, con el objetivo de ofrecer una visión comparativa que justifica y contextualiza las soluciones revisadas.\\
+
+
+% --- TABLA: ANTECEDENTES (MULTIPÁGINA, SIN FLOAT) -------------------------
+\begin{longtblr}[
+  caption = {Antecedentes relevantes sobre biometría y arquitecturas descentralizadas.},
+  label   = {tab:antecedentes_desc},
+]{
+  width   = \textwidth,
+  colspec = {X[l,0.22] X[l,0.16] X[l,0.31] X[l,0.31]},
+  row{1}  = {font=\bfseries},
+  hlines,
+}
+Autor (Año) & Propuesta & Breve descripción & Aporte principal \\
+
+Khan et al. (2019)\,\cite{Varma2020AadharVoting} &
+Modelo blockchain &
+Propone un esquema de verificación/validación de identidad para procesos electrónicos, incorporando biometría y registro sobre blockchain. &
+Evidencia beneficios de inmutabilidad y trazabilidad para reforzar integridad y confianza en procesos basados en identidad. \\
+
+Griffin (2019)\,\cite{griffin8} &
+BAKE / BESAKE &
+Propone un enfoque de firma electrónica donde la biometría participa en la construcción/activación del proceso de firma. &
+Integra biometría en la generación de firmas digitales, reduciendo dependencia de infraestructuras centralizadas tradicionales. \\
+
+Hassen et al. (2020)\,\cite{Hassen2020} &
+FIBS &
+Diseña un esquema de firma/seguridad donde rasgos biométricos multimodales apoyan la autenticación y derivación de material criptográfico. &
+Deriva claves desde biometría multimodal, evitando almacenar secretos y fortaleciendo autenticación. \\
+
+Lee et al. (2021)\,\cite{Lee2021} &
+BDAS &
+Explora un sistema de autenticación biométrica con soporte blockchain, enfocado en protección de plantillas. &
+Preserva integridad de plantillas biométricas mediante fragmentación y almacenamiento distribuido. \\
+
+Alzahab et al. (2024)\,\cite{AboAlzahab2024} &
+Biometric &
+Presenta una dApp de autenticación biométrica descentralizada basada en fuzzy commitment y blockchain. &
+Garantiza integridad biométrica usando compromisos difusos y un modelo descentralizado verificable. \\
+
+Yun et al. (2024)\,\cite{Yun2024BioRollup} &
+Bio-Rollup &
+Propone una arquitectura de dos capas con técnicas criptográficas para proteger biometría manteniendo escalabilidad. &
+Verifica autenticación biométrica con ZKP y mejora escalabilidad mediante un enfoque tipo rollup. \\
+
+Lai et al. (2024)\,\cite{Lai2024BioZero} &
+BioZero &
+Propone un protocolo eficiente de autenticación biométrica descentralizada en blockchain abierta con énfasis en privacidad. &
+Refuerza identidad biométrica autosoberana combinando compromisos criptográficos y ZKP. \\
+\end{longtblr}
+
+A pesar de todos estos avances, sigue habiendo un problema de fondo que aun no esta resuelto. Todavia no existe una revision sistematica que permita tener una vision clara
+y organizada sobre que enfoques se han propuesto para asegurar la integridad de los datos biometricos en firmas digitales descentralizadas. La informacion disponible esta muy dispersa, cada estudio usa tecnicas
+distintas y no hay un analisis que compare sus resultados, sus limites o sus verdaderas fortalezas. Esta falta de claridad dificulta saber que tan efectivas son las soluciones actuales, que vacios siguen abiertos
+y hacia donde deberia avanzar la investigacion en este campo. Frente a este panorama , este estudio se centra en responde la pregunta de investigación: 
+¿Cuales son las limitaciones, fortalezas y tendencias actuales de los enfoques propuestos para garantizar la integridad de los datos biometricos en firmas digitales descentralizadas? De esta manera,
+la investigación busca el examinar como se están enfrentando los desafíos técnicos y conceptuales relacionados con la integridad de los datos biométricos, centrándonos en lo que respecta a su almacenamiento,
+transmisión y validación dentro de sistemas distribuidos. En lo que respecta a la delimitación de este estudio , se consideraron artículos científicos publicados entre 2009 y 2025, recopilados a partir de
+bases de datos indexadas en como Scopus, IEEE Xplore y Web of Science, lo que permite contar con una visión actualizada de la literatura disponible sobre el tema. Este estudio ayuda a entender, de una 
+forma más clara y directa, cómo funcionan los sistemas que identifican a las personas usando sus propias características, cómo se integran en plataformas distribuidas y cómo se usan en procesos de 
+verificación digital que necesitan protección matemática y criptográfica. También explica qué medidas hacen falta para cuidar la información sensible que manejan estos sistemas y muestra, de manera 
+sencilla, los problemas técnicos, las limitaciones y las dudas conceptuales que todavía dificultan su uso. En conjunto, el trabajo no solo resume lo que se sabe hasta ahora, sino que también da una
+idea de hacia dónde deberían avanzar las soluciones para que sean más seguras, confiables y respetuosas con los datos personales en entornos tecnológicos descentralizados.Para cerrar esta primera parte, vale 
+mencionar brevemente cómo se organiza el resto del articulo.En la Sección 1 se describe el contexto general del estudio, la problemática abordada y los antecedentes que motivan la investigación. La Sección 2 detalla 
+la metodología empleada para el mapeo sistemático, incluyendo el proceso de búsqueda, los criterios de inclusión y exclusión y el análisis de los estudios seleccionados. En la Sección 3 se presentan los principales 
+resultados, junto con una discusión sobre las limitaciones, fortalezas y tendencias identificadas en las propuestas relacionadas con la integridad de los datos biométricos en firmas digitales descentralizadas. 
+Finalmente, la Sección 4 expone las conclusiones generales y plantea posibles líneas de trabajo futuro orientadas a mejorar la seguridad y la verificación de datos biométricos en sistemas distribuidos.
+
+\section{Materials and Methods }
+\subsection{Research Questions and Scope }
+El presente trabajo corresponde a una revisión sistemática de la literatura, desarrollada siguiendo las guías de Kitchenham y los lineamientos de PRISMA 2020, con el fin de asegurar un proceso claro y ordenado de 
+búsqueda, selección y síntesis de la información. Se adoptó un diseño documental con enfoque cualitativo, ya que el estudio se basa exclusivamente en fuentes secundarias y en el análisis interpretativo de los 
+trabajos seleccionados. El alcance es descriptivo y exploratorio, dado que busca identificar, clasificar y analizar los enfoques y soluciones reportados en la literatura, lo que permite ofrecer una visión 
+estructurada del estado actual del conocimiento y detectar vacíos o tendencias relevantes para futuras investigaciones. El alcance del estudio se delimitó mediante el marco PICo, presentado en la Tabla 
+\ref{tab:pico_def}, el cual permitió definir la Población, el Interés y el Contexto de la revisión. A partir de esta delimitación se formuló la pregunta central:
+\begin{quote}
+\textit{¿Cuales son las limitaciones, fortalezas y tendencias actuales de los enfoques propuestos para garantizar la integridad de los datos biometricos en firmas digitales descentralizadas?}
+\end{quote}
+Con base en las recomendaciones de Kitchenham, se formularon preguntas adicionales que apoyan la extracción y organización de la información:
+
+\begin{itemize}[label=]
+    \item \textbf{RQ1:} ¿Qué enfoques han sido propuestos en la literatura científica para integrar datos biométricos en firmas digitales descentralizadas?
+    \item \textbf{RQ2:} ¿Qué técnicas y principios criptográficos se utilizan para garantizar la integridad de los datos biométricos en firmas digitales en entornos descentralizados?
+    \item \textbf{RQ3:} ¿Cuáles son las principales limitaciones y desafíos técnicos que enfrenta la implementación de sistemas biométricos en firmas digitales descentralizadas?
+\end{itemize}
+
+% ------------------------ TABLA PICo (3 columnas) ------------------------
+\begin{adjustwidth}{-\extralength}{0cm}
+\begin{longtblr}[
+  caption = {Esquema PICo — Elementos, términos concretos y definiciones},
+  label   = {tab:pico_def}
+]{
+  width   = \textwidth,
+  colspec = {X[j, 0.2] X[j,0.4] X[j, 0.6]},
+  rowhead = 1,
+  row{1}  = {font=\bfseries},
+  width = \fulllength
+}
+
+\toprule
+\textbf{Elemento} & \textbf{Definición} & \textbf{Alcance Operativo} \\
+\midrule
+
+\textbf{P — Población} &
+Entornos descentralizados &
+Plataformas basadas en tecnologías distribuidas como blockchain, identidades autosoberanas (SSI) y registros distribuidos (DLT) que soportan procesos de autenticación, verificación y gestión de información sin intermediarios. \\
+
+\textbf{I — Intervención} &
+Mecanismos de integridad y protección de datos en sistemas de firma digital. &
+Técnicas y métodos orientados a garantizar que los datos utilizados en la firma digital no sean alterados, manipulados o comprometidos durante su procesamiento o verificación en entornos descentralizados. \\
+
+\textbf{Co — Contexto} &
+Sistemas que emplean datos biométricos. &
+Ambientes donde datos como huella, rostro, iris o voz se integran para verificación o vinculación en firmas digitales \\
+
+\bottomrule
+\end{longtblr}
+\end{adjustwidth}
+\subsection{2.2. Estrategia de búsqueda}
+La estrategia de búsqueda se basó en los elementos definidos en el marco PICo presentado previamente Tabla \ref{tab:pico_def}. A partir de la Población, el Interés y el Contexto se elaboró una matriz de términos relacionados, 
+donde cada componente fue desglosado en sinónimos, expresiones equivalentes y acrónimos usados en la literatura sobre biometría, seguridad y sistemas descentralizados. Estos términos derivados sirvieron como base
+para la construcción de las cadenas booleanas aplicadas en cada base de datos. En esta etapa se evitaron definiciones conceptuales del PICo, enfocándose únicamente en los términos operativos necesarios 
+garantizar búsquedas amplias, precisas y reproducibles. La Tabla \ref{tab:pico_terms} presenta el conjunto de términos derivados para cada elemento del esquema PICo.
+
+% ------------------------ TABLA VARIANT TERMS ------------------------
+\begin{adjustwidth}{-\extralength}{0cm}
+\begin{longtblr}[
+  caption = {Variant terms derivados del esquema PICo utilizados en la estrategia de búsqueda},
+  label   = {tab:pico_terms}
+]{
+  width   = \textwidth,
+  colspec = {X[j,m,0.25] X[j,m,0.75]},
+  rowhead = 1,
+  row{1}  = {font=\bfseries},
+  width = \fulllength
+}
+\toprule
+\textbf{Elemento PICo} & \textbf{Variant Terms / Equivalencias léxicas} \\
+\midrule
+
+\textbf{P — Población} &
+electronic, connection, relation, system, disperse, Distribute, Scatter , Decentralized, Self-Sovereign Identity, Web of trust, GPG, PGP  \\
+
+\textbf{I — Intervención} &
+digitall, Electronic*  sing*, singed, authentication, verification , certification, validation, authorization \\
+
+\textbf{Co — Contexto} &
+Biometric*, FaceID, Fingerprint, dactylogram,  IRIS ,  eye ,  Voice, Keystroke dynamics \\
+\bottomrule
+\end{longtblr}
+\end{adjustwidth}
+
+Las cadenas se elaboraron uniendo los términos de forma iterativa con operadores booleanos, siguiendo el criterio:
+
+\[
+\text{Población} \; \mathbf{AND} \; \text{Intervención} \; \mathbf{AND} \; \text{Contexto}.
+\]
+Estas combinaciones se adaptaron a la sintaxis y operadores propios de cada base de datos. Se realizaron búsquedas piloto y revisiones manuales para depurar términos y asegurar la recuperación de literatura
+relevante. Las búsquedas finales se efectuaron en Web of Science, Scopus e IEEE Xplore, y las cadenas utilizadas en cada plataforma se presentan en la Tabla \ref{tab:chain}, garantizando coherencia y comparabilidad en el
+proceso PRISMA.
+
+% ------------------------ TABLA BASES DE DATOS ------------------------
+\begin{adjustwidth}{-\extralength}{0cm}
+\begin{longtblr}[
+  caption = {Cadenas de búsqueda empleadas en las bases de datos consultadas},
+  label   = {tab:chain}
+]{
+  width   = \fulllength,
+  colspec = {X[l,m,0.20] X[l,m,0.80]},
+  rowhead = 1,
+  row{1}  = {font=\bfseries},
+}
+\toprule
+\textbf{Base de datos} & \textbf{Cadena de búsqueda} \\
+\midrule
+
+\textbf{Scopus y Web of Science} &
+(( electronic OR connection OR system ) AND  
+ ( Disperse OR Distribute OR Scatter OR Decentralized ))
+ OR ( Self-Sovereign Identity OR Web of trust OR GPG OR PGP )
+\newline
+( digital OR Electronic* ) AND ( sing* OR sign OR signed ) 
+ OR ( authentication OR verification OR validation ) 
+ OR ( authorization )
+\newline
+(Biometric* OR FaceID OR Fingerprint OR dactylogram OR IRIS OR eye OR Voice OR Keystroke dynamics) \\
+
+\textbf{IEEE Xplore} &
+ electronic OR connection OR system  AND  
+  Disperse OR Distribute OR Scatter OR Decentralized 
+ OR  Self-Sovereign Identity OR Web of trust OR GPG OR PGP 
+\newline
+ digital OR Electronic*  AND  sing* OR sign OR signed  
+ OR  authentication OR verification OR validation 
+ OR  authorization 
+\newline
+Biometric* OR FaceID OR Fingerprint OR dactylogram OR IRIS OR eye OR Voice OR Keystroke dynamics  \\
+
+\bottomrule
+\end{longtblr}
+\end{adjustwidth}
+
+
+\subsection{Selección de Artículos}
+El proceso de selección de estudios siguió la estructura del diagrama PRISMA 2020, organizada en las etapas de identificación, cribado, elegibilidad e inclusión. En la fase de identificación, todos los registros
+obtenidos desde las bases de datos fueron exportados y se eliminaron duplicados mediante herramientas automáticas complementadas con una verificación manual. Durante el cribado de títulos y resúmenes se aplicó un
+filtro conceptual basado en el marco PICo, comprobando que cada registro guardara correspondencia básica con los elementos definidos para la Población, el Interés y el Contexto. Este paso permitió excluir estudios 
+sin relación con entornos descentralizados, biometría o procesos de firma digital. El cribado se realizó mediante revisión por pares ciegos utilizando la plataforma Rayyan. Una vez completada la fase de screening, 
+las discrepancias entre revisores fueron discutidas y resueltas por consenso, sin necesidad de intervención externa, garantizando así coherencia en la clasificación de los estudios. En la fase de elegibilidad, 
+los trabajos preseleccionados fueron revisados a texto completo aplicando los criterios de inclusión y exclusión  establecidos en la Tabla \ref{tab:criterios}, considerando aspectos como el tipo de tecnología analizada, la 
+pertinencia con el enfoque del estudio, el idioma, la fecha de publicación y la disponibilidad del contenido.
+
+
+
+
+
+
+
+% ------------------------ TABLA CRITERIOS DE INCLUSION Y EXCLUSION ------------------------
+\begin{longtblr}[
+  caption = {Criterios de inclusión y exclusión aplicados en la revisión sistemática.},
+  label   = {tab:criterios}
+]{
+  width   = \textwidth,
+  colspec = {X[l,m,0.25] X[l,m,0.7]},
+  rowhead = 1,
+  row{1}  = {font=\bfseries},
+}
+\toprule
+\textbf{Criterio} & \textbf{Descripción / Justificación} \\
+
+\midrule
+\SetCell[c=2]{l}{\textbf{Criterios de Inclusión}} \\
+\midrule
+
+Población & Estudios que trabajen con entornos descentralizados aplicados a procesos de firma digital, identidad digital o gestión de información segura. \\
+
+Intervención & Propuestas, mecanismos o métodos orientados a garantizar la integridad o protección de datos biométricos. \\
+
+Tipo de dato biométrico & Estudios que utilicen datos biométricos humanos empleados para autenticación o procesos de firma digital. \\
+
+Tipo de estudio & Artículos primarios revisados por pares que describan arquitecturas, frameworks, protocolos, técnicas criptográficas o sistemas aplicables. \\
+
+Resultados & Deben presentar aportaciones claras, como enfoques, desafíos, ventajas o análisis vinculados a integridad, seguridad o manejo de datos biométricos en contextos descentralizados. \\
+
+Relevancia temática & Correspondencia con los tres elementos del marco PICo. \\
+
+Disponibilidad & Acceso al texto completo para la revisión y extracción de datos. \\
+
+Periodo & Publicaciones entre 2009 y 2025, debido al desarrollo reciente de biometría y sistemas descentralizados. \\
+
+Idioma & Publicaciones en inglés \\
+
+\midrule
+\SetCell[c=2]{l}{\textbf{Criterios de Exclusión}} \\
+\midrule
+
+Población no pertinente & Estudios centrados en sistemas centralizados, biometría sin relación con firmas digitales, o contextos no tecnológicos. \\
+
+Contexto e Intervención no aplicable & Trabajos que utilicen únicamente métodos tradicionales sin tratar integridad biométrica, o que aborden criptografía general sin incluir biometría. \\
+
+Datos no apropiados & Artículos que trabajen biometría en ámbitos no relacionados con autenticación, firmas digitales o seguridad. \\
+
+
+Acceso limitado & Imposibilidad de obtener el texto completo del estudio. \\
+
+Duplicación & Estudios duplicados o versiones extendidas/reducidas del mismo trabajo. \\
+
+Biometría de hardware & Estudios centrados en el diseño o evaluación de dispositivos físicos de captura biométrica, sin analizar la gestión o integridad de los datos biométricos en procesos de firma digital. \\
+
+Periodo excluido & Publicaciones anteriores a 2009. \\
+
+Idioma no permitido & Trabajos escritos en idiomas distintos  inglés. \\
+
+Calidad metodológica & Reportes con deficiencias importantes en claridad, transparencia, coherencia o descripción técnica. \\
+
+\bottomrule
+\end{longtblr}
+
+La selección de estudios se llevó a cabo mediante revisión por pares con dos evaluadores independientes en la plataforma Rayyan, utilizando el modo ciego para minimizar sesgos. Las discrepancias se resolvieron
+mediante discusión y acuerdo entre los revisores. Durante la evaluación a texto completo se registraron de forma explícita las razones de exclusión, 
+siguiendo las indicaciones de PRISMA. Finalmente, solo se incorporaron a la síntesis cualitativa los estudios que cumplían con todos los criterios definidos, asegurando la trazabilidad y reproducibilidad del proceso.
+
+\subsection{Quality Assessment}
+La evaluación de calidad metodológica se realizó después de la selección a texto completo y antes de la extracción de datos, siguiendo las guías de Kitchenham (2007) para 
+revisiones sistemáticas en ingeniería. El objetivo fue valorar el rigor y la transparencia de los estudios incluidos y detectar posibles sesgos que pudieran afectar la interpretación de los resultados sobre 
+integridad de datos biométricos en entornos descentralizados.
+
+Se aplicó un instrumento de evaluación adaptado al dominio de biometría y tecnologías descentralizadas, considerando las dimensiones establecidas por Kitchenham: (1) Claridad y adecuación de la información analizada,
+(2) caridad del diseño experimental, (3) amenazas a la validez, (4) integracion biometria-descentralizacion , y (5) transparencia general del estudio. La Tabla \ref{tab:quality}
+presenta los criterios aplicados.
+
+
+\begin{longtblr}[
+  caption = {Criterios de evaluación de calidad aplicados a los estudios incluidos.},
+  label   = {tab:quality}
+]{
+  width = \textwidth,
+  colspec = {X[l,m,0.35] X[l,m,0.65]},
+  rowhead = 1,
+  row{1} = {font=\bfseries},
+}
+\toprule
+\textbf{Criterio} & \textbf{Descripción} \\
+\midrule
+
+\textbf{Claridad de la información} &
+El estudio explica claramente qué datos o conceptos utiliza y para qué sirven dentro del sistema que analiza. \\
+
+\textbf{Calidad del diseño del estudio} &
+Describe de forma sencilla y ordenada cómo se hizo el estudio, qué partes lo componen y qué decisiones metodológicas se tomaron. \\
+
+\textbf{Amenazas a la validez} &
+El estudio reconoce factores que pueden afectar la validez de los resultados obtenidos. \\
+
+\textbf{Integración biometría–descentralización} &
+Explica de forma clara cómo se combinan los sistemas descentralizados con los datos biométricos y por qué esta integración aporta mejoras en seguridad o integridad. \\
+
+\textbf{Transparencia del estudio} &
+Menciona las limitaciones, posibles problemas y el alcance real del enfoque propuesto. \\
+
+\bottomrule
+\end{longtblr}
+
+
+\subsection{Extracción de datos}
+El proceso de extracción de datos se realizó siguiendo  las guías metodológicas de Kitchenham para revisiones sistemáticas. Para cada estudio incluido después de la evaluación a 
+texto completo, se aplicó un formulario estructurado de extracción diseñado específicamente para esta revisión (Tabla \ref{tab:matriz_extraccion_vertical}), el cual fue probado previamente en una fase piloto con un conjunto reducido de artículos para
+asegurar claridad y consistencia en su aplicación. La extracción fue realizada por un único revisor, registrando de manera sistemática la información relevante de cada estudio. Este procedimiento buscó garantizar 
+uniformidad en la captura de datos y reducir posibles sesgos derivados del análisis. Los datos extraídos incluyeron: (1) el sistema biométrico utilizado, (2) el entorno descentralizado empleado, (3) la técnica 
+criptográfica asociada, (4) los mecanismos de protección aplicados a los datos biométricos, (5) los desafíos identificados en cada propuesta y (6) las limitaciones reconocidas por los autores. Estas variables 
+permitieron caracterizar de manera estructurada el estado del arte sobre integridad biométrica en sistemas de firma digital descentralizada.
+
+
+\begin{longtblr}[
+  caption = {Matriz de extracción de datos para los estudios incluidos.},
+  label   = {tab:matriz_extraccion_vertical}
+]{
+  width   = \textwidth,
+  colspec = {X[l,m,0.28] X[l,m,0.72]},
+  rowhead = 1,
+  row{1} = {font=\bfseries},
+}
+\toprule
+\textbf{Parámetro} & \textbf{Descripción} \\
+\midrule
+
+\textbf{Sistema biométrico} & Tipo de biometría empleada. \\
+
+\textbf{Entorno descentralizado} & Tipo de infraestructura distribuida utilizada. \\
+
+\textbf{Técnica criptográfica} & Métodos criptográficos aplicados. \\
+
+\textbf{Protección de datos biométricos} & Medidas empleadas para resguardar los datos biométricos (cifrado, anonimización, plantillas, etc.). \\
+
+\textbf{Desafíos identificados} & Problemas técnicos o limitaciones prácticas mencionados en la propuesta. \\
+
+\textbf{Limitaciones} & Restricciones reconocidas por los autores respecto al enfoque o a su aplicabilidad. \\
+
+\bottomrule
+\end{longtblr}
+
+\subsection{Análisis de datos }
+El análisis de los datos extraídos se realizó mediante una síntesis narrativa, siguiendo las  recomendaciones de Kitchenham para revisiones sistemáticas en ingeniería. Dado que los 
+estudios incluidos presentan una notable diversidad en cuanto a tipos de biometría, arquitecturas descentralizadas, técnicas criptográficas y mecanismos de protección, no fue posible aplicar un metaanálisis 
+cuantitativo. Por ello, se optó por una integración descriptiva y estructurada de los hallazgos. Los estudios fueron organizados en función de las preguntas de investigación planteadas, lo que permitió agrupar la 
+evidencia según: (1) el sistema biométrico utilizado, (2) el entorno descentralizado empleado, (3) las técnicas criptográficas integradas en cada propuesta, (4) los métodos de protección de datos biométricos, (5) 
+los desafíos señalados y (6) las limitaciones reconocidas por los autores. Dentro de cada dimensión se identificaron patrones recurrentes y variaciones metodológicas relacionadas con la 
+integridad de los datos biométricos en sistemas de firma digital. Asimismo, se realizó un análisis transversal asociando la calidad metodológica de los estudios según los criterios definidos en la Tabla \ref{tab:quality} con 
+la solidez y consistencia de los enfoques propuestos. Este contraste permitió valorar hasta qué punto los trabajos más completos o transparentes ofrecen soluciones más robustas o coherentes dentro del ámbito 
+descentralizado. Finalmente, los resultados se integraron en una síntesis narrativa que responde de manera conjunta a las preguntas de investigación y al marco PICo, proporcionando una visión general y crítica del 
+estado actual de las soluciones orientadas a proteger la integridad de los datos biométricos en firmas digitales descentralizadas.
+
+\section{Results}
+\subsection{Study Selection}
+La estrategia de búsqueda permitió identificar inicialmente 110 registros; posteriormente, tras descartar los duplicados y aplicar los criterios de inclusión y exclusión durante las fases de selección y revisión a 
+texto completo, se incluyeron finalmente 10 estudios en la presente revisión sistemática. El proceso de selección de estudios se resume en el diagrama PRISMA presentado en la Figura \ref{fig:prisma}
+
+
+% --- FIGURA: DIAGRAMA PRISMA -----------------------------
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{prisma.pdf}
+  \caption{PRISMA 2020 flow diagram of the study selection process.}
+  \label{fig:prisma}
+\end{figure}
+
+
+
+% --- TABLA: RAZONES DE EXCLUSIÓN -------------------------
+\begin{table}[ht]
+\centering
+\caption{Razones de exclusión de los estudios tras la revisión a texto completo.}
+\label{tab:razones_exclusion}
+\begin{tabular}{lll}
+\toprule
+Categoría & Referencias Excluidas & Número de Estudios \\
+\midrule
+Without access & A01, A08, A010 & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Quality Assessment}
+Los resultados de la evaluación de calidad muestran que, tras aplicar los criterios C1–C4, la mayoría de los estudios incluidos presenta una calidad metodológica alta. En esta evaluación se consideró la claridad del 
+enfoque y del objetivo (C1), el tratamiento de la biometría y la integridad de los datos biométricos (C2), el uso de mecanismos criptográficos o tecnologías descentralizadas (C3) y la calidad técnica y los aportes 
+del estudio (C4). Los trabajos con una puntuación normalizada inferior a 0.5 fueron descartados, mientras que los estudios aceptados se clasificaron en calidad baja, buena y excelente. Los resultados indican que 
+solo un número reducido de estudios alcanzó una calidad baja (T.R entre 0.1 y 0.7). En estos casos, las limitaciones se relacionan principalmente con una descripción poco detallada de los mecanismos de integridad 
+biométrica o con un uso parcial de tecnologías descentralizadas. Por otra parte, un número menor de trabajos fue clasificado como de calidad buena (T.R entre 0.7 y 0.9), caracterizados por una implementación técnica 
+adecuada, aunque con restricciones en el alcance o en la integración de la biometría dentro del sistema propuesto. La mayoría de los estudios aceptados alcanzó una calidad excelente (T.R $\geq$ 0.9). 
+Estos trabajos se distinguen por definir claramente sus objetivos, emplear biometría humana de forma explícita, integrar tecnologías descentralizadas y presentar arquitecturas o evaluaciones técnicas bien 
+estructuradas. Estos resultados muestran que la literatura más reciente en el área tiende a ofrecer propuestas más maduras y metodológicamente sólidas, como se resume en la Tabla~\ref{tab:quality_levels}.
+
+\begin{table}[ht]
+\centering
+\caption{Distribución de los estudios según el nivel de calidad metodológica.}
+\label{tab:quality_levels}
+\begin{tabular}{lll}
+\toprule
+Nivel de calidad & Referencias & Número de estudios \\
+\midrule
+Baja & A011, A09 & 2 \\
+Buena & A06 & 1 \\
+Excelente & A03, A02, A07, A05, A012, A13 & 6 \\
+Rechazado & A04 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Characteristics of Included Studies}
+
+En relación con las modalidades biométricas, el reconocimiento facial y la huella dactilar son las técnicas más utilizadas, cada una presente en el 50 \%e los estudios (n = 5),
+observándose que varios trabajos emplean más de una modalidad biométrica \cite{Varma2020AadharVoting,mir7,Orofino6,Lu2022CIPPFL,Muraleedharan2009WSNBiometrics}. 
+La biometría de voz aparece en el 20 \% (n = 2) de los artículos\cite{griffin8,Orofino6} , mientras que el iris es considerado en el 10 \% (n = 1).
+\\ Respecto a las tecnologías descentralizadas, el 70 \% de los estudios (n = 7) adopta arquitecturas 
+basadas en blockchain\cite{Varma2020AadharVoting,Qureshi2019BlockchainP2P,mir7,Wang5,Orofino6,Lu2022CIPPFL,tavares9} siendo Ethereum la plataforma más mencionada (n = 4)\cite{mir7,Wang5,Qureshi2019BlockchainP2P,tavares9}. Adicionalmente, el uso de
+soluciones de almacenamiento distribuido, como IPFS, se reporta en el 30 \% de los casos (n = 3)\cite{Qureshi2019BlockchainP2P,Wang5,Orofino6}.
+En cuanto al uso de firmas digitales y enfoques criptográficos, los estudios muestran una combinación de esquemas tradicionales y mecanismos biométricos. Se identifican 
+propuestas que emplean protocolos biométricos para la derivación de claves, como BAKE/BESAKE \cite{griffin8} , así como el uso de identificadores descentralizados (DIDs) y 
+credenciales verificables en el 30 \% de los estudios (n = 3)\cite{mir7,Wang5,Orofino6}. Los esquemas criptográficos 
+tradicionales, como RSA-SHA256 y certificados X.509, aparecen en el 20 \% (n = 2) de los artículos\cite{griffin8,tavares9}.\\ Para garantizar la integridad de los 
+datos biométricos, el hashing es la técnica criptográfica más frecuente, reportada en el 80 \% de los estudios, incluyendo variantes como el hashing perceptual \cite{Varma2020AadharVoting,Qureshi2019BlockchainP2P,mir7,Wang5,Orofino6,tavares9,Lu2022CIPPFL,griffin8}.
+Asimismo, se reporta el uso de Pruebas de Conocimiento Cero (ZKP) en el 30 \%de los casos (n = 3)\cite{mir7,Wang5,Orofino6} 
+y Cifrado Homomórfico en dos estudios\cite{Qureshi2019BlockchainP2P,Lu2022CIPPFL}. En relación con la protección de los datos biométricos, el 40 \% de los artículos
+(n = 4) emplea almacenamiento distribuido o fragmentación de claves\cite{Qureshi2019BlockchainP2P,Orofino6,mir7,Wang5} , mientras que tres estudios optan por almacenamiento 
+local en dispositivos del usuario\cite{mir7,Wang5,tavares9}.
+Desde el punto de vista metodológico, los estudios experimentales y simulaciones representan el 60 \% (n = 6)\cite{Varma2020AadharVoting,Qureshi2019BlockchainP2P,mir7,Cheng2010ImprovedQIM,Lu2022CIPPFL,Muraleedharan2009WSNBiometrics} ,
+mientras que las pruebas de concepto y propuestas arquitectónicas constituyen el 40 \% restante \cite{tavares9,Wang5,Orofino6,griffin8}.La distribución porcentual de estas características se resume en la Figura \ref{fig:characteristics_percentage}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{table8_grouped_by_area_color.png}
+\caption{Percentage of studies reporting each characteristic (N=10).}
+\label{fig:characteristics_percentage}
+\end{figure}
+
+
+
+
+
+
+
+
+\subsection{Synthesis of Results According to Research Questions}
+A continuación se presentan los hallazgos organizados en función de las RQs establecidas.
+
+% ----------------- RQ1 -----------------------------------
+\subsubsection*{\textbf{RQ1}. ¿Qué enfoques han sido propuestos en la literatura científica para integrar datos biométricos en firmas digitales descentralizadas?}
+Se identificó que la integración de datos biométricos en sistemas de firmas y autorizaciones descentralizadas se estructura bajo tres enfoques arquitectónicos principales. 
+
+\textbf{I. Precursor para el establecimiento de canales y claves seguras}
+
+
+En la comparación de las propuestas dentro de este enfoque, se observa que tanto Griffin~\cite{griffin8} como Lu et al.~\cite{Lu2022CIPPFL} posicionan la biometría como una 
+capa de seguridad previa, aunque con aplicaciones distintas. Griffin propone una estructura donde la muestra biométrica permite a dos partes remotas establecer una conexión 
+cifrada directamente, eliminando la necesidad de infraestructuras de certificados externos para validar la comunicación de un contrato. Por su parte, Lu et al. implementan esta 
+arquitectura como una puerta de enlace de autenticación en un entorno de aprendizaje distribuido, donde la validación biométrica es el requisito funcional que autoriza a un 
+nodo local para acceder a datos privados y participar en la actualización de un modelo global. Mientras Griffin se enfoca en la creación del vínculo de comunicación para firmas 
+legales, Lu et al. utilizan la arquitectura para proteger el acceso a activos de información en procesos de computación industrial.\\
+La arquitectura funcional de este enfoque se apoya en el uso de sensores biométricos para capturar muestras, las cuales constituyen el punto de partida de una interacción entre dos partes sin intermediarios 
+centralizados. La información obtenida a partir del rasgo biológico capturado se utiliza para generar los elementos necesarios que permiten establecer un canal de comunicación seguro.. En este modelo, los 
+componentes principales incluyen el dispositivo de captura local y un protocolo de intercambio que emplea la información biométrica para asegurar la sesión antes de que se produzca cualquier acto formal de firma o 
+transferencia de datos. Los estudios señalan que la biometría actúa como el componente inicial de autenticación que asegura la infraestructura de comunicación y permite validar la identidad antes del intercambio de 
+información sensible en la red.
+
+\textbf{II. Como evidencia de intención y sello de integridad inmutable}
+
+
+Al comparar a los autores de este paradigma, Orofino Giambastiani et al.~\cite{Orofino6}, Jose et al.~\cite{Varma2020AadharVoting} y Griffin~\cite{griffin8} coinciden en el 
+uso de la biometría como un sustituto funcional de la firma manuscrita para garantizar la integridad de un evento. Orofino Giambastiani describe una arquitectura aplicada a 
+registros médicos donde la firma biométrica del profesional valida hitos clínicos específicos, asegurando su presencia y vigilancia activa. Jose et al. proponen una estructura 
+para el sufragio electrónico donde la huella dactilar del votante autoriza la emisión del voto tras ser contrastada con una base de datos de identidad nacional. Griffin 
+complementa este enfoque sugiriendo que las muestras biológicas pueden documentar formalmente la aceptación de términos contractuales, sirviendo como evidencia de consentimiento
+que se almacena junto al documento firmado.\\Este enfoque arquitectónico se despliega en el punto de acción donde se requiere vincular la voluntad física de un individuo con un registro digital persistente. Los componentes
+fundamentales incluyen el hardware (Escáneres de iris, Cámaras para reconocimiento facial, Micrófonos) de captura biométrica integrado en el proceso de autorización y una red descentralizada que registra la asociación entre el rasgo biológico y 
+la transacción. \\En este contexto, el acto de proporcionar la muestra biométrica constituye en sí mismo la autorización de la operación, generando un registro que se vincula de 
+forma permanente a una cadena de bloques para asegurar que la acción sea auditable y resistente al repudio.Aunque los dominios de aplicación difieren, los estudios coinciden en mantener la biometría como prueba directa de la participación 
+del sujeto en el acto registrado.
+
+\textbf{III. Factor de Identidad Soberana (SSI) y recuperación de activos}
+
+
+En el análisis comparativo, Mir et al.~\cite{mir7}, Wang y De Filippi~\cite{Wang5} y Tavares et al.~\cite{tavares9} proponen sistemas que eliminan la dependencia de proveedores 
+de identidad siempre en línea, aunque con matices técnicos. Mir et al. presentan una arquitectura donde la biometría permite al usuario interactuar con múltiples agentes 
+personales para recuperar el control de su capacidad de firma sin que ninguna entidad única posea la información completa.Wang y De Filippi analizan este modelo en contextos humanitarios, donde la biometría permite
+vincular a una persona con sus derechos y beneficios de forma persistente, haciendo posible que la identidad sea transportable incluso cuando la autoridad emisora original deja de existir. Por su parte, 
+Tavares et al. proponen una arquitectura que conecta documentos de identidad físicos con billeteras de la red Ethereum y emplean la biometría para verificar que el poseedor de los activos digitales sea el titular 
+legítimo del documento original. Mir et al. se centran en los mecanismos de recuperación técnica de la identidad, mientras que Wang y Tavares resaltan aspectos relacionados con la soberanía individual y la movilidad 
+global.\\
+La arquitectura funcional de este enfoque sitúa al usuario en el centro de la gestión de su identidad y utiliza la biometría como el medio para ejercer control sobre sus propios atributos y credenciales. 
+Entre sus componentes principales se incluyen billeteras digitales, identificadores descentralizados y agentes de identidad personales que operan de manera distribuida. En este modelo, la biometría se emplea como 
+mecanismo para desbloquear el acceso a la identidad digital del usuario o para recuperar capacidades de firma 
+que no se encuentran almacenadas en un servidor central.
+
+
+
+% ----------------- RQ2 -----------------------------------
+\subsubsection*{\textbf{RQ2}. ¿Qué técnicas y principios criptográficos se utilizan para garantizar la integridad de los datos biométricos en firmas digitales en entornos descentralizados?}
+
+
+A partir de la revisión de la literatura, se identificó que la integridad de los datos biométricos en sistemas de firmas digitales descentralizadas se garantiza mediante la aplicación de distintos principios y
+técnicas criptográficas, los cuales pueden agruparse en cuatro enfoques principales según su función dentro del proceso de seguridad.
+
+\textbf{I. Protocolos de intercambio de claves}
+
+Griffin (2018) reporta el uso de protocolos de Intercambio de Claves
+Autenticadas por Contraseña (PAKE) y su variante biométrica (BAKE) para establecer canales de comunicación seguros que protegen la confidencialidad de las credenciales durante
+su transferencia\cite{griffin8}. En esta arquitectura, la biometría se integra mediante la extracción de "secretos débiles" a partir de muestras procesadas por sensores locales, los cuales
+alimentan un intercambio de claves Diffie-Hellman\cite{griffin8}. La función principal de esta técnica es permitir que partes remotas establezcan un vínculo cifrado de forma directa, eliminando la 
+dependencia de Infraestructuras de Claves Públicas (PKI) externas y evitando ataques de intermediario (man-in-the-middle)\cite{griffin8}. Como ventaja, se reporta una reducción considerable 
+en los costos de gestión de certificados, aunque Griffin advierte que la seguridad del sistema sigue ligada a la entropía del secreto extraído.
+
+\textbf{II. Anclaje criptográfico mediante hashing y estampado en blockchain}
+
+Esta tecnica constituye el pilar de la inmutabilidad en la mayoría de los estudios analizados. Orofino Giambastiani et al. 
+(2023) y Tavares et al. (2018) emplean funciones de hash criptográfico para generar identificadores únicos de los registros biométricos, los cuales se almacenan en el libro 
+mayor distribuido mientras los datos originales permanecen fuera de la red (off-chain)\cite{Orofino6,tavares9}. De forma similar, Jose et al. (2020) reportan el uso de códigos hash para verificar 
+si las imágenes esteganográficas que contienen datos de identidad han sido alteradas durante el proceso de votación\cite{Varma2020AadharVoting}. En estos sistemas, la arquitectura funcional se basa en 
+una separación estricta: los datos sensibles se sitúan en sistemas de almacenamiento direccionables por contenido, como el Sistema de Archivos Interplanetario (IPFS), y solo 
+el hash resultante se registra on-chain como una prueba de existencia inmutable\cite{Qureshi2019BlockchainP2P,Orofino6}.\\ Esta configuración permite que cualquier modificación en el dato original invalide el vínculo 
+con la cadena de bloques, garantizando así que la información no haya sido adulterada. No obstante, Orofino Giambastiani et al. señalan como limitación técnica la latencia 
+actual en la subida y descarga de redes de almacenamiento logico-decentralizadas, lo que obliga a usar bases de datos intermedias para el procesamiento en tiempo real\cite{Orofino6}.
+
+\textbf{III. Compromisos criptográficos y pruebas de conocimiento cero (ZKP)}
+
+El uso de Compromisos Criptográficos y Pruebas de Conocimiento Cero (ZKP) se identifica como un principio avanzado para preservar la integridad sin comprometer la privacidad. 
+Mir et al. (2022) integran Funciones Pseudoaleatorias Oblivious de Umbral (TOPRF) y esquemas de intercambio de secretos de Shamir (TSS) para fragmentar las capacidades de firma 
+entre múltiples agentes personales\cite{mir7}. En su flujo operativo, la biometría actúa como el factor de desbloqueo que permite reconstruir la clave privada solo cuando se alcanza un umbral 
+determinado de agentes autorizados, protegiendo al sistema contra ataques de diccionario offline\cite{mir7}. Wang y De Filippi (2020) y Mir et al. (2022) coinciden en que el uso de ZKP 
+permite al usuario demostrar la posesión de una credencial biométrica válida ante un verificador (como un proveedor de servicios) sin revelar el dato biológico subyacente, 
+asegurando que la identidad sea portable y resistente al repudio\cite{Wang5,mir7}. Una limitación reportada en la arquitectura de Mir et al. es que la seguridad se ve comprometida si el 
+número de agentes corrompidos supera el umbral crítico establecido.
+
+
+\textbf{IV. Técnicas de enmascaramiento y ruido diferencial}
+
+La integridad de los datos procesados en el extremo (edge computing) se refuerza mediante técnicas de enmascaramiento y ruido diferencial. Lu et al. (2022) 
+reportan una arquitectura de aprendizaje federado donde se añade ruido gaussiano a los parámetros del modelo (gradientes) antes de ser cargados al servidor central\cite{Lu2022CIPPFL}. 
+Esta técnica de privacidad diferencial evita que atacantes externos infieran la distribución de los datos biométricos privados a partir de las actualizaciones del sistema\cite{Lu2022CIPPFL}. 
+Sin embargo, los autores observan una limitación técnica inherente: la adición de ruido excesivo para mejorar la protección de la privacidad puede provocar una disminución 
+en la precisión diagnóstica del sistema\cite{Lu2022CIPPFL}. Por su parte, Tavares et al. (2018) integran firmas RSA-SHA256 para vincular billeteras de Ethereum con atributos de identidad 
+certificados por autoridades oficiales (X.509), asegurando que el puente entre el mundo físico y digital mantenga la legitimidad de la titularidad de forma desintermediada\cite{tavares9}. 
+Estas técnicas configuran un ecosistema donde la integridad biométrica no depende de un único almacén central, sino de la robustez matemática del anclaje on-chain y el control de acceso en el extremo.
+
+% ----------------- RQ3 -----------------------------------
+\subsubsection*{\textbf{RQ3}. ¿Cuáles son las principales limitaciones y desafíos técnicos que enfrenta la implementación de sistemas biométricos en firmas digitales descentralizadas?}
+
+\textbf{I. Rendimiento y viabilidad económicas}
+
+Se observa que la eficiencia de las firmas biométricas está condicionada por la latencia de confirmación y los costos 
+operativos de transacción (gas fees). Mir et al. (2022) reportan valores monetarios específicos para el registro de credenciales, con costos estimados de 
+0.069USD en la redNamecoiny 0.0225 USD en la red de prueba Ethereum Rinkeby\cite{mir7}. 
+
+Estos autores detallan que las tarifas pueden oscilar entre 0 y 0.01 NMC o hasta 0.000424 ETHER dependiendo de la prioridad de procesamiento, lo que genera disparidades notables en los tiempos de confirmación: 
+mientras Namecoin requiere aproximadamente dos horas para alcanzar 12 confirmaciones, en Ethereum el proceso se reduce a alrededor de tres minutos, una vez completada la sincronización inicial del nodo 
+que puede extenderse hasta aproximadamente tres horas y se realiza solo durante la fase de configuración, sin afectar la agilidad de las firmas posteriores~\cite{mir7}. \\
+Wang y De Filippi (2020) coinciden en que los costos en cadenas públicas basadas en prueba de 
+trabajo (PoW) resultan elevados y prohibitivos para el uso masivo, a diferencia de las redes privadas de prueba de autoridad (PoA) que operan con costo cero por transacción o 
+redes laterales donde las tarifas son despreciables\cite{Wang5}. Por su parte, Orofino Giambastiani et al. (2023) reportan que las velocidades de carga en redes como IPFS impiden el 
+registro de datos biométricos en tiempo real y califican el almacenamiento masivo directamente en cadena como técnicamente impráctico debido al tamaño extremo de bloque que 
+requeriría\cite{Orofino6}. Finalmente, Tavares et al. (2018), aunque no proveen costos exactos de gas para su solución, informan que los procesos tradicionales de identidad tienen costos de 
+\$15 a \$20 USD por trámite, señalando que la ineficiencia y los tiempos de respuesta de varios días en sistemas convencionales persisten como un factor de comparación crítico 
+para la viabilidad de las alternativas descentralizadas\cite{tavares9}.
+\needspace{2\baselineskip}
+
+\textbf{II. Precisión y estabilidad de los sistemas biométricos}
+
+Representan otra limitación técnica reportada con frecuencia. Wang y De Filippi (2020) señalan que las tasas de error 
+en escaneos de iris pueden oscilar entre el 2.5\% y el 20\%\cite{Wang5}, viéndose afectadas por cambios físicos inevitables como cataratas, quemaduras o el envejecimiento. Jose et al. (2020) 
+enfatizan la dificultad de mantener tasas de falsa aceptación (FAR) y falso rechazo (FRR) cercanas a cero en sistemas de votación a gran escala\cite{Varma2020AadharVoting}. En el ámbito del procesamiento, 
+Cheng et al. (2010) observan que aumentar el tamaño del paso de cuantificación para mejorar la robustez degrada significativamente el rendimiento de detección de las huellas 
+biométricas\cite{Cheng2010ImprovedQIM}. Lu et al. (2022) reportan un desafío similar en el aprendizaje federado, donde la adición de ruido diferencial para preservar la privacidad provoca una caída 
+en la precisión diagnóstica del sistema\cite{Lu2022CIPPFL}.
+
+\textbf{III. Seguridad y privacidad}
+
+Los estudios identifican riesgos inherentes al carácter público e irreversible de la biometría. Wang y De Filippi (2020) 
+advierten que el rasgo biológico, a diferencia de una contraseña, no puede ser cambiado si se ve comprometido\cite{Wang5}, y es vulnerable a ataques de spoofing mediante fotografías, 
+videos o lentes de contacto. Mir et al. (2022) reportan que el almacenamiento de datos de referencia biométrica con proveedores de identidad crea un "punto único de falla" y 
+atrae ataques de diccionario offline\cite{mir7}, además de señalar que los dispositivos móviles finales presentan una superficie de ataque elevada frente a malware, pérdida o robo. El 
+robo de plantillas se identifica como una debilidad crítica cuando el marco de trabajo utiliza el dato biológico directamente para la autenticación sin capas de anonimización.
+
+\textbf{IV. Barreras tecnológicas y resistencia de los usuarios}
+
+La dependencia de la infraestructura tecnológica y la resistencia de los usuarios constituyen barreras para la adopción global. Wang y De Filippi (2020) subrayan 
+que los modelos de identidad soberana dependen de la penetración de smartphones y conectividad constante, lo cual es incierto en contextos de vulnerabilidad\cite{Wang5}. Un desafío 
+técnico mayor es la recuperación de claves: la pérdida del dispositivo físico implica a menudo la pérdida definitiva de la identidad digital, dado que el sistema carece de 
+autoridades centrales para el restablecimiento. Orofino Giambastiani et al. (2023) añaden que la complejidad técnica y la necesidad de hardware adicional pueden generar 
+resistencia a la adopción entre los profesionales, quienes perciben la inmutabilidad de los registros biométricos como un riesgo de responsabilidad legal\cite{Orofino6}. En conjunto, estas 
+limitaciones indican que la integración biométrica en firmas descentralizadas aún debe resolver el conflicto entre la seguridad matemática del protocolo y la fragilidad 
+operativa del entorno del usuario.
+
+\section{Discussion}
+
+Los resultados de esta revisión sistemática permiten contrastar los enfoques propuestos en estudios previos con las tendencias generales observadas en los trabajos analizados. Los principales antecedentes revisados 
+se resumen en la Tabla~\ref{tab:antecedentes_desc}, mientras que esta sección se centra en examinar las similitudes, diferencias y vacíos identificados a partir de los resultados obtenidos.
+En relación con las similitudes, se observa una coincidencia clara entre los enfoques individuales y los patrones generales identificados. La mayoría de los estudios analizados adopta arquitecturas descentralizadas 
+basadas en blockchain, en línea con propuestas como BDAS \cite{Lee2021}, BiometricIdentity \cite{AboAlzahab2024} y BioZero \cite{Lai2024BioZero}, donde la descentralización se emplea como un mecanismo para reforzar 
+la integridad y la trazabilidad de los datos biométricos \cite{Orofino6,mir7,Qureshi2019BlockchainP2P,tavares9}. En este contexto, la biometría se incorpora principalmente como un factor de autenticación o como un 
+insumo para la generación de material criptográfico \cite{griffin8,mir7,Sarier3,Hassen2020}. Este enfoque es coherente con los resultados que evidencian un uso frecuente de la huella dactilar y del reconocimiento 
+facial \cite{Varma2020AadharVoting,Lu2022CIPPFL,Muraleedharan2009WSNBiometrics,Orofino6}, así como con la adopción de protocolos de derivación de claves biométricas \cite{griffin8,Sarier3,Lai2024BioZero}. 
+De manera similar, los mecanismos criptográficos identificados en los antecedentes también se reflejan en los resultados de la revisión. El uso amplio de funciones hash como técnica de anclaje criptográfico aparece 
+tanto en propuestas tempranas como en soluciones más recientes, lo que explica que el hashing sea la técnica más frecuente en los estudios incluidos \cite{Varma2020AadharVoting,Qureshi2019BlockchainP2P,mir7,tavares9,Hassen2020}. 
+En la misma línea, la incorporación de pruebas de conocimiento cero en trabajos recientes coincide con la tendencia hacia esquemas que priorizan la verificación sin revelación, orientados a preservar la privacidad 
+sin afectar la integridad de los datos \cite{mir7,Sarier3,Yun2024BioRollup,Lai2024BioZero}. Sin embargo, también se identifican diferencias relevantes. Aunque algunos antecedentes proponen mecanismos avanzados de 
+fragmentación \cite{Lee2021,AboAlzahab2024}, así como esquemas de almacenamiento distribuido o arquitecturas de múltiples capas \cite{Qureshi2019BlockchainP2P,Orofino6,Sarier3,Yun2024BioRollup}, los resultados 
+generales muestran que estas soluciones todavía no son predominantes. Una proporción significativa de los estudios continúa utilizando almacenamiento local o enfoques híbridos \cite{Wang5,mir7,AboAlzahab2024,Sarier3}, 
+lo que sugiere que la adopción de esquemas completamente descentralizados para la protección de datos biométricos sigue siendo limitada en la práctica \cite{Orofino6,Wang5}. Esta situación evidencia una brecha entre 
+propuestas conceptualmente sólidas y su implementación efectiva \cite{Wang5,tavares9,Yun2024BioRollup}. 
+Otra diferencia relevante está relacionada con la madurez técnica de las soluciones. Si bien algunas propuestas recientes incorporan técnicas avanzadas de escalabilidad y privacidad, como los rollups \cite{Yun2024BioRollup} 
+o la computación homomórfica parcial \cite{Lai2024BioZero,Qureshi2019BlockchainP2P}, los resultados de la revisión indican que estos enfoques aún se mantienen como líneas emergentes de investigación y no como 
+soluciones ampliamente consolidadas. Esta situación explica su menor frecuencia relativa frente a técnicas más tradicionales y mejor comprendidas. Finalmente, los desafíos identificados en los antecedentes se 
+confirman a nivel global en los resultados de esta investigación. Problemas relacionados con el rendimiento, la latencia, los costos operativos y la variabilidad inherente de los sistemas biométricos persisten 
+como barreras técnicas relevantes\cite{mir7,tavares9,Sarier3,Wang5,Orofino6}. A pesar de los avances observados, estos factores continúan limitando la adopción a gran escala de firmas digitales descentralizadas 
+basadas en biometría\cite{Wang5,Lai2024BioZero,AboAlzahab2024,tavares9}.La discusión pone de manifiesto que, aunque existe un consenso creciente sobre la utilidad de integrar biometría y descentralización para 
+garantizar la integridad de los datos, aún persiste una brecha entre las propuestas más avanzadas y su aplicación generalizada. Esta brecha refuerza la necesidad de estudios que evalúen de forma comparativa la viabilidad, escalabilidad y robustez de estas soluciones en escenarios reales.
+
+\FloatBarrier
+
+\section{Conclusions}
+Los resultados obtenidos en este estudio permiten comprender cómo se está abordando la integridad de los datos biométricos en firmas digitales dentro de entornos descentralizados. La evidencia analizada muestra que 
+las soluciones actuales combinan biometría humana con arquitecturas distribuidas, principalmente para reducir la dependencia de sistemas centralizados y reforzar la verificación de las operaciones digitales. 
+En este contexto, la biometría se utiliza de forma recurrente como mecanismo de autenticación y como vínculo entre la identidad del usuario y los procesos de firma o validación, mientras que las tecnologías 
+descentralizadas aportan propiedades de inmutabilidad y verificación distribuida. Los enfoques identificados se apoyan mayoritariamente en técnicas criptográficas consolidadas, como el hashing y el registro en 
+libros mayores distribuidos, que siguen siendo la base práctica para garantizar la integridad de la información. Al mismo tiempo, aparecen propuestas orientadas a mejorar la privacidad y la escalabilidad, aunque su 
+adopción aún es limitada. Los resultados también muestran la presencia de desafíos persistentes relacionados con el rendimiento, los costos operativos, la variabilidad de los sistemas biométricos y los riesgos 
+asociados a la exposición de datos sensibles que no pueden ser reemplazados si se ven comprometidos. En general, el análisis realizado indica que el área avanza hacia soluciones más completas y mejor fundamentadas, 
+pero todavía existen brechas entre las propuestas técnicas y su aplicación práctica a gran escala. Esto sugiere la necesidad de continuar desarrollando mecanismos que equilibren integridad, privacidad y usabilidad, 
+así como de realizar evaluaciones en escenarios reales que permitan validar la efectividad de estas soluciones en sistemas de firma digital descentralizados.
+
+
+
+
+
+
+\reftitle{References}
+\bibliography{referencias} 
+
+
+
+
+
+
+% If authors have biography, please use the format below
+%\section*{Short Biography of Authors}
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author1.pdf}}}
+%{\textbf{Firstname Lastname} Biography of first author}
+%
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author2.jpg}}}
+%{\textbf{Firstname Lastname} Biography of second author}
+
+% For the MDPI journals use author-date citation, please follow the formatting guidelines on http://www.mdpi.com/authors/references
+% To cite two works by the same author: \citeauthor{ref-journal-1a} (\citeyear{ref-journal-1a}, \citeyear{ref-journal-1b}). This produces: Whittaker (1967, 1975)
+% To cite two works by the same author with specific pages: \citeauthor{ref-journal-3a} (\citeyear{ref-journal-3a}, p. 328; \citeyear{ref-journal-3b}, p.475). This produces: Wong (1999, p. 328; 2000, p. 475)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% for journal Sci
+%\reviewreports{\\
+%Reviewer 1 comments and authors’ response\\
+%Reviewer 2 comments and authors’ response\\
+%Reviewer 3 comments and authors’ response
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\isPreprints{}{% This command is only used for ``preprints''.
+
+%} % If the paper is ``preprints'', please uncomment this parenthesis.
+\end{document}
+

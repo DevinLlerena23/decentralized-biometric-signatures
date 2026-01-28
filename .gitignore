@@ -1,0 +1,29 @@
+# ===== LaTeX temporales =====
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# ===== Bibliografía temporal =====
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
+# ===== Paquetes especiales =====
+_minted*
+*.vrb
+
+# ===== Temporales de editores / SO =====
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
