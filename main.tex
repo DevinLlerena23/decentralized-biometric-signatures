@@ -79,15 +79,13 @@
 
 \abstract{La creciente adopción de firmas digitales y sistemas de identidad en entornos electrónicos ha incrementado la necesidad de garantizar la integridad y la seguridad de los datos biométricos utilizados en 
 estos procesos. Sin embargo, el uso de biometría introduce desafíos críticos, ya que los datos biométricos no pueden ser reemplazados si se ven comprometidos y son vulnerables a manipulación, suplantación o 
-reconstrucción cuando no se protegen adecuadamente. Estas limitaciones se agravan en entornos descentralizados, donde no existe una entidad central que supervise la generación, almacenamiento y verificación de las 
-plantillas biométricas, lo que dificulta asegurar su integridad a lo largo del tiempo. En este contexto, las tecnologías descentralizadas han surgido como una alternativa para reducir la dependencia de 
-infraestructuras centralizadas y reforzar la verificabilidad de la información. Frente a este escenario, el objetivo de este estudio es analizar de forma sistemática las limitaciones, fortalezas y tendencias de los enfoques propuestos para garantizar la integridad de los datos biométricos en 
-firmas digitales descentralizadas. La investigación se desarrolló mediante una revisión sistemática de la literatura, siguiendo las guías metodológicas de Kitchenham, el proceso PRISMA y delimitada mediante el marco PICo.
-A partir de una estrategia de búsqueda estructurada en bases de datos científicas, se aplicaron criterios de inclusión y exclusión, así como una evaluación de calidad metodológica para seleccionar y analizar los 
-estudios relevantes. Los resultados muestran que las soluciones integran principalmente biometría humana, como huella dactilar y reconocimiento facial, y en menor medida biometría de voz e iris, combinadas con 
+reconstrucción cuando no se protegen adecuadamente. En entornos descentralizados, la gestión de las plantillas biométricas requiere mecanismos específicos, ya que no existe una entidad central encargada de 
+supervisar su generación, almacenamiento y verificación. En este contexto, las tecnologías descentralizadas han surgido como una alternativa para reducir la dependencia de infraestructuras centralizadas y reforzar 
+la verificabilidad de la información. Frente a este escenario, el objetivo de este estudio es analizar de forma sistemática las limitaciones, fortalezas y tendencias de los enfoques propuestos para garantizar la 
+integridad de los datos biométricos en firmas digitales descentralizadas. La investigación se desarrolló mediante una revisión sistemática de la literatura, siguiendo las guías metodológicas de Kitchenham, el 
+proceso PRISMA . Los resultados muestran que las soluciones integran principalmente biometría humana, como huella dactilar y reconocimiento facial, y en menor medida biometría de voz e iris, combinadas con 
 arquitecturas basadas en blockchain. y que la integridad se apoya sobre todo en técnicas criptográficas consolidadas, mientras que enfoques avanzados, como pruebas de conocimiento cero y compromisos criptográficos, 
-presentan una adopción limitada. También se identifican desafíos  relacionados con costos, latencia, variabilidad biométrica y riesgos de privacidad.En general, los resultados indican que los enfoques actuales 
-avanzan hacia soluciones más completas y mejor fundamentadas, especialmente en la integración de biometría humana con tecnologías descentralizadas. No obstante, persisten brechas técnicas y operativas relacionadas 
+presentan una adopción limitada. También se identifican desafíos  relacionados con costos, latencia, variabilidad biométrica y riesgos de privacidad. No obstante, persisten brechas técnicas y operativas relacionadas 
 con la escalabilidad, los costos, la variabilidad biométrica y la protección de la privacidad, que limitan su aplicación práctica a gran escala. Estos hallazgos muestran la necesidad de continuar desarrollando y 
 evaluando mecanismos que equilibren integridad, privacidad y usabilidad en sistemas de firma digital descentralizados. }
 \keyword{biometría; firmas digitales; blockchain; integridad; privacidad}
@@ -97,6 +95,8 @@ evaluando mecanismos que equilibren integridad, privacidad y usabilidad en siste
 
 
 
+
+\clearpage
 
 \section{Introduction}
 
@@ -302,7 +302,7 @@ Ambientes donde datos como huella, rostro, iris o voz se integran para verificac
 \bottomrule
 \end{longtblr}
 \end{adjustwidth}
-\subsection{2.2. Estrategia de búsqueda}
+\subsection{Estrategia de búsqueda}
 La estrategia de búsqueda se basó en los elementos definidos en el marco PICo presentado previamente Tabla \ref{tab:pico_def}. A partir de la Población, el Interés y el Contexto se elaboró una matriz de términos relacionados, 
 donde cada componente fue desglosado en sinónimos, expresiones equivalentes y acrónimos usados en la literatura sobre biometría, seguridad y sistemas descentralizados. Estos términos derivados sirvieron como base
 para la construcción de las cadenas booleanas aplicadas en cada base de datos. En esta etapa se evitaron definiciones conceptuales del PICo, enfocándose únicamente en los términos operativos necesarios 
@@ -557,6 +557,14 @@ la solidez y consistencia de los enfoques propuestos. Este contraste permitió v
 descentralizado. Finalmente, los resultados se integraron en una síntesis narrativa que responde de manera conjunta a las preguntas de investigación y al marco PICo, proporcionando una visión general y crítica del 
 estado actual de las soluciones orientadas a proteger la integridad de los datos biométricos en firmas digitales descentralizadas.
 
+\subsection{Data Availability}
+
+Los materiales utilizados durante la revisión sistemática se encuentran disponibles en una carpeta compartida en línea: 
+\href{https://puceseedu-my.sharepoint.com/:f:/g/personal/dfllerenab_pucese_edu_ec/IgCWZ0gZDgmySIHOisE3XWZcAQy9vpfVrFsgBDyiiaDnH4Y?e=giKqHg}{Repositorio de datos y materiales de la revisión}.
+
+
+
+
 \section{Results}
 \subsection{Study Selection}
 La estrategia de búsqueda permitió identificar inicialmente 110 registros; posteriormente, tras descartar los duplicados y aplicar los criterios de inclusión y exclusión durante las fases de selección y revisión a 
@@ -643,7 +651,7 @@ mientras que las pruebas de concepto y propuestas arquitectónicas constituyen e
 \begin{figure}[htbp]
 \centering
 \begin{adjustwidth}{-\extralength}{0cm}
-\includegraphics[width=\linewidth]{table8_grouped_by_area_color.png}
+\includegraphics[width=\linewidth]{table8_grouped_by_area_color (1).png}
 \end{adjustwidth}
 \caption{Percentage of studies reporting each characteristic (N=10).}
 \label{fig:characteristics_percentage}
@@ -840,15 +848,15 @@ En relación con las técnicas y principios criptográficos utilizados para gara
 consolidados, especialmente funciones hash y el registro de evidencias en libros mayores distribuidos. Estas técnicas continúan siendo la base práctica más utilizada para asegurar que la información no sea alterada 
 una vez registrada. Al mismo tiempo, se identifican propuestas orientadas a mejorar la privacidad y la escalabilidad, como compromisos criptográficos y pruebas de conocimiento cero, aunque su adopción aún es 
 limitada y se concentra principalmente en trabajos más recientes.\\
-Los resultados también evidencian la presencia de limitaciones y desafíos técnicos persistentes. Entre los más relevantes se encuentran los problemas de rendimiento y latencia, los costos operativos asociados a 
-infraestructuras descentralizadas, la variabilidad inherente de los sistemas biométricos y los riesgos derivados de la exposición de datos sensibles que no pueden ser reemplazados si se ven comprometidos. Estas 
-limitaciones continúan afectando la viabilidad y la adopción a gran escala de las soluciones propuestas.\\
-Los resultados obtenidos permiten responder a la pregunta de investigación y comprender las limitaciones, fortalezas y tendencias actuales de los enfoques propuestos para garantizar la integridad de los datos 
-biométricos en firmas digitales descentralizadas. Como principales fortalezas, se identifica el uso combinado de biometría humana y tecnologías descentralizadas para reforzar la integridad y la verificación de los 
-procesos digitales. En cuanto a las tendencias, se observa un interés creciente por integrar mecanismos que mejoren la privacidad y la escalabilidad, aunque su aplicación práctica aún es limitada. Finalmente, las 
-limitaciones detectadas indican que, si bien el área avanza hacia soluciones más completas y mejor fundamentadas, todavía existen brechas entre las propuestas técnicas y su aplicación práctica a gran escala. Esto 
-evidencia la necesidad de continuar desarrollando mecanismos que equilibren integridad, privacidad y usabilidad, así como de realizar evaluaciones en escenarios reales que permitan validar la efectividad de estas 
-soluciones en sistemas de firma digital descentralizados.
+Se evidencia la presencia de limitaciones y desafíos técnicos persistentes. Entre los más relevantes se identifican los problemas de rendimiento y latencia, los costos operativos asociados a infraestructuras 
+descentralizadas, la variabilidad inherente de los sistemas biométricos y los riesgos derivados de la exposición de datos sensibles que no pueden ser reemplazados si se ven comprometidos. Estas limitaciones 
+continúan afectando la viabilidad y la adopción a gran escala de las soluciones propuestas.\\
+el análisis realizado permite comprender las limitaciones, fortalezas y tendencias actuales de los enfoques propuestos para garantizar la integridad de los datos biométricos en firmas digitales descentralizadas. 
+Como principales fortalezas, se identifica el uso combinado de biometría humana y tecnologías descentralizadas para reforzar la integridad y la verificación de los procesos digitales. En cuanto a las tendencias, 
+se observa un interés creciente por integrar mecanismos orientados a mejorar la privacidad y la escalabilidad, aunque su aplicación práctica aún es limitada. De forma general, el área avanza hacia soluciones más 
+completas y mejor fundamentadas, aunque persisten brechas entre las propuestas técnicas y su aplicación práctica a gran escala, lo que justifica la necesidad de continuar investigando y evaluando estas soluciones 
+en contextos reales.
+
 
 
 
